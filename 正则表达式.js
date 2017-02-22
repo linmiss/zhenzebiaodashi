@@ -58,3 +58,5 @@ var str5 = 'abcadef';
 console.log(str5.replace('a','T')); // Tbcadef
 console.log(str5.replace(/a/,'T')); // Tbcadef
 console.log(str5.replace(/a/g,'T')); // TbcTdef
+
+fgf 
