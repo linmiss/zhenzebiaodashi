@@ -1,7 +1,5 @@
 
-
 "use strict"
-
 
 //皇家同花顺
 const huangJiaTHS = ( num ,color ) => {
@@ -26,25 +24,27 @@ const tongHuaS = ( num ,color) => {
 };
 
 
-$.getJSON("./data.json",function (data,status) {
+$.getJSON("./five_cards_with_ghost.json",function (data,status) {
     
     const re = /[0-9A-Z]+/g;
     const re1=/[a-z]/g;
-
-    for(let i = 0 ; i < data.poker.length; i++) {
-        var bobo = data.poker[i].bobo,
-            coco = data.poker[i].coco;
-        var num = bobo.match(re); //面值
-        var color = coco.match(re1); //花色
+    console.log(data.matches.length);
+    for(let i = 0 ; i < data.matches.length; i++) {
+        var alice = data.matches[i].alice,
+            bob = data.matches[i].bob;
+        var num1 = alice.match(re); //面值
+        var color1 = alice.match(re1); //花色
+        console.log(color1);
         /*  10 = T ; 11 = J ; 12 = Q ; 13 = K ;  14 = A  */
-        var num = num.toString().replace(/T/g,'10');
-        var num = num.toString().replace(/J/g,'11');
-        var num = num.toString().replace(/Q/g,'12');
-        var num = num.toString().replace(/K/g,'13');
-        var num = num.toString().replace(/A/g,'14');
+        var num1 = num1.toString().replace(/T/g,'10');
+        var num1 = num1.toString().replace(/J/g,'11');
+        var num1 = num1.toString().replace(/Q/g,'12');
+        var num1 = num1.toString().replace(/K/g,'13');
+        var num1= num1.toString().replace(/A/g,'14');
         //console.log(num);
-        var num = num.split(",").sort( (a,b) => a-b );
-        //console(num);
+        var num1 = num1.split(",").sort( (a,b) => a-b );
+        var color1 = color1.
+        console.log(num1);
     };
 
 });
