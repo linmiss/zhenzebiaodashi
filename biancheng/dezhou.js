@@ -10,7 +10,7 @@ var huangJiaTHS = (num, color) => {
 
 };
 
-console.log(huangJiaTHS([10, 11, 12, 13, 14], ["s", "h", "d", "c"]));
+//console.log(huangJiaTHS([10, 11, 12, 13, 14], ["s", "h", "d", "c"]));
 //同花顺
 var tongHuaS = (num, color) => {
     for (let i = 1; i < num.length; i++) {
