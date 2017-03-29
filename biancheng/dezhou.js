@@ -4,12 +4,7 @@ let sameColor_s = ["s", "s", "s", "s", "s"].toString(),
     sameColor_d = ["d", "d", "d", "d", "d"].toString(),
     sameColor_c = ["c", "c", "c", "c", "c"].toString();
 
-
-
-
-
 //皇家同花顺
-
 var huangJiaTHS = (num, color) => {
     if (num == [10, 11, 12, 13, 14].toString() && (sameColor_s == color || sameColor_h == color || sameColor_d == color || sameColor_c == color)) {
         return true;
