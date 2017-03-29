@@ -84,7 +84,7 @@ var tongHua = (num, color) => {
 
 
 
-//顺子：花色不一样的顺子。（最大牌：A-K-Q-J-10 最小牌：A-2-3-4-5
+//顺子：花色不一样的顺子。（最大牌：A-K-Q-J-10 最小牌：A-2-3-4-5）
 
 var shuZi = (num, color) => {
     if (sameColor_s != color && sameColor_h != color && sameColor_d != color && sameColor_c != color) {
@@ -104,56 +104,106 @@ var shuZi = (num, color) => {
 //三条：三同张加两单张。（最大牌：A-A-A-K-Q 最小牌：2-2-2-3-4
 
 var sanTiao = (num, color) => {
-    if (num[0] == num[1] == num[2] && num[3] != num[4]) {
+        if (num[0] == num[1] == num[2] && num[3] != num[4]) {
+            return true;
+        } else if (num[1] == num[2] == num[3] && num[0] != num[4]) {
+            return true;
+        } else if (num[2] == num[3] == num[4] && num[0] != num[1]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    //console.log(sanTiao([2, 3, 3, 3, 4]));
+
+//两对：（最大牌：A-A-K-K-Q 最小牌：2-2-3-3-4
+
+var doubleD = (num, color) => {
+    if (num[0] == num[1] && num[2] == num[3] && num[3] != num[4] && num[1] != num[2]) {
         return true;
-    } else if (num[1] == num[2] == num[3] && num[0] != num[4]) {
+    } else if (num[0] == num[1] && num[3] == num[4] && num[1] != num[3] && num[1] != num[2]) {
         return true;
-    } else if (num[2] == num[3] == num[4] && num[0] != num[1]) {
+    } else if (num[1] == num[2] && num[3] == num[4] && num[3] != num[2] && num[0] != num[1]) {
         return true;
     } else {
         return false;
     }
-}
-console.log(sanTiao([1, 2, 2, 2, 4]));
+};
 
-//两对：（最大牌：A-A-K-K-Q 最小牌：2-2-3-3-4
+//console.log(doubleD([2, 2, 4, 5, 5]));
+
+
 
 //一对：（最大牌：A-A-K-Q-J 最小牌：2-2-3-4-5
 
-$.getJSON("./match.json", function(data, status) {
-    let arrAlice_num = [],
-        arrAlice_color = [],
-        arrBob_num = [],
-        arrBob_color = [];
+var double = (num, color) => {
 
-    const re = /[0-9A-Z]+/g;
-    const re1 = /[a-z]/g;
+}
 
-    //console.log(data.matches.length);
-    for (let i = 0; i < data.matches.length; i++) {
-        var alice = data.matches[i].alice,
-            bob = data.matches[i].bob;
-        var num1 = alice.match(re); //面值
-        var color1 = alice.match(re1); //花色
+//单牌：花色和面值都不同
 
-        /*  10 = T ; 11 = J ; 12 = Q ; 13 = K ;  14 = A  */
+var deff = (num, color) => {
+    if (sameColor_s != color && sameColor_h != color && sameColor_d != color && sameColor_c != color &&
+        num[0] != num[1] != num[2] != num[3] != num[4]
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+};
 
-        /* alice*/
-        var num1 = num1.toString().replace(/T/g, '10');
-        var num1 = num1.toString().replace(/J/g, '11');
-        var num1 = num1.toString().replace(/Q/g, '12');
-        var num1 = num1.toString().replace(/K/g, '13');
-        var num1 = num1.toString().replace(/A/g, '14');
-        //console.log(num1);
-        var num1 = num1.split(",").sort((a, b) => a - b);
-        var color1 = color1.sort((a, b) => b - a);
-        arrAlice_num.push(num1);
-        arrAlice_color.push(color1);
+console.log(deff([2, 2, 2, 4, 5], ["c", "c", "s", "c", "c"]))
 
-        //console.log(color1);
 
-    };
-    //console.log(arrAlice_num);
-    //console.log(arrAlice_color);
 
-});
+
+
+
+
+
+
+
+//牌的面值和花色处理
+let fs = require('fs');
+
+//获取data数据
+var data = JSON.parse(fs.readFileSync("./match.json"));
+//console.log(data);
+
+//牌处理后的结果
+let arrAlice_num = [],
+    arrAlice_color = [],
+    arrBob_num = [],
+    arrBob_color = [];
+
+//面值和花色处理
+const re = /[0-9A-Z]+/g;
+const re1 = /[a-z]/g;
+
+//console.log(data.matches.length);
+for (let i = 0; i < data.matches.length; i++) {
+    var alice = data.matches[i].alice,
+        bob = data.matches[i].bob;
+    var num1 = alice.match(re); //面值
+    var color1 = alice.match(re1); //花色
+
+    /*  10 = T ; 11 = J ; 12 = Q ; 13 = K ;  14 = A  */
+
+    /* alice*/
+    var num1 = num1.toString().replace(/T/g, '10');
+    var num1 = num1.toString().replace(/J/g, '11');
+    var num1 = num1.toString().replace(/Q/g, '12');
+    var num1 = num1.toString().replace(/K/g, '13');
+    var num1 = num1.toString().replace(/A/g, '14');
+
+    var num1 = num1.split(",").sort((a, b) => a - b);
+    var color1 = color1.sort((a, b) => b - a);
+    //console.log(num1);
+    //arrAlice_num.push(num1);
+    //arrAlice_color.push(color1);
+
+    //console.log(color1);
+
+};
+//console.log(arrAlice_num);
+//console.log(arrAlice_color);
