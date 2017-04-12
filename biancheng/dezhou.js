@@ -137,22 +137,34 @@ var doubleD = (num, color) => {
 //一对：（最大牌：A-A-K-Q-J 最小牌：2-2-3-4-5
 
 var double = (num, color) => {
+    if(num[0] == num[1] && num[2] != num[3] && num[3]!= num[4] && num[2]!= num[4] ) {
+        return true;
+    }else if(num[1] == num[2] && num[0] != num[3] && num[3]!= num[4] && num[0]!= num[4]) {
+        return true;
+    }else if(num[2] == num[3] && num[0] != num[3] && num[3]!= num[4] && num[0]!= num[4]) {
+        return true;
+    }else if(num[1] == num[2] && num[0] != num[3] && num[3]!= num[4] && num[0]!= num[4]) {
 
+    }
 }
 
 //单牌：花色和面值都不同
 
 var deff = (num, color) => {
-    if (sameColor_s != color && sameColor_h != color && sameColor_d != color && sameColor_c != color &&
-        num[0] != num[1] != num[2] != num[3] != num[4]
-    ) {
-        return true;
-    } else {
-        return false;
+    if (sameColor_s != color && sameColor_h != color && sameColor_d != color && sameColor_c != color ) {
+        if (num[0] != num[1] && num[0] != num[2] && num[0] != num[3] && num[0] != num[4] &&
+            num[1] != num[2] && num[1] != num[3] && num[1] != num[4] &&
+            num[2] != num[3] && num[2] != num[4] &&
+            num[3] != num[4]) {
+            return true;
+        }
+       
+    }else {
+         return false;
     }
-};
+}
 
-console.log(deff([2, 2, 2, 4, 5], ["c", "c", "s", "c", "c"]))
+console.log(deff([2, 2, 2, 4, 5], ["c", "s", "c", "c", "c"]));
 
 
 
