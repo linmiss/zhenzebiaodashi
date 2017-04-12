@@ -203,7 +203,6 @@ for (let i = 0; i < data.matches.length; i++) {
     //arrAlice_color.push(color1);
 
     //console.log(color1);
-
 };
 //console.log(arrAlice_num);
 //console.log(arrAlice_color);
