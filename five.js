@@ -132,6 +132,8 @@ var level=function(poker){// 等级判断
   return z(a) || y(a) || x(a) || w(a) || v(a) || u(a) || t(a) || s(a) || r(a);
 }
 
+
+
 var trans=function(str){//输入字符串转换
   var arr=[];
   for(var i=0;i<str.length;i+=2){
@@ -152,15 +154,17 @@ var confirmed=function(obj) {//验证函数
     var outcome = s1 > s2 ? 1 : s1 == s2 ? 0 : 2
     var result = obj[i].result;
     if (outcome != result) {
-      console.log(i);
+      //console.log(i);
       count++;
     }
   }
   if(count == 0){
-      console.log("验证"+i+"条");
-      console.log("恭喜验证通过！");
+      //console.log("验证"+i+"条");
+      //console.log("恭喜验证通过！");
    }else{
-     console.log("验证失败");
+    // console.log("验证失败");
    }
 }
 confirmed(obj);
+
+
