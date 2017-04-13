@@ -19,7 +19,7 @@ for (var i = 0; i < 52; i++) {
 
 var z = function(a){ //同花顺
     if( a.mainColor ){
-        var nums = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var nums = [0,0,0,0,0,0,0,0,0,0,0,0,0],
         arr = a.filter(function(p){
             var ok = p.color === a.mainColor;
             if(ok){

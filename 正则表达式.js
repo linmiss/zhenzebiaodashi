@@ -6,7 +6,7 @@ const str = 'abcdef';
 
 console.log(str.search('b')); // 1 index
 
-console.log(str.substring(1, 4)); // bcd 包含开始位置，不包括结束位置
+console.log(str.substring(1, 4) ); // bcd 包含开始位置，不包括结束位置
 
 console.log(str.substring(1)); //bcdef
 
