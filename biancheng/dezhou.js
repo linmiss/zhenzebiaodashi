@@ -46,7 +46,7 @@ var siTiao = (num, color) => {
 
 };
 
-//console.log(siTiao([3, 3, 3, 3, 10] , ["c", "c", "s", "c", "c"]));
+//console.log(siTiao([3, 5, 5, 5, 5] , ["s", "c", "c", "c", "c"]));
 
 
 //葫芦：最大牌：A-A-A-K-K 最小牌：2-2-2-3-3
@@ -104,17 +104,18 @@ var shuZi = (num, color) => {
 //三条：三同张加两单张。（最大牌：A-A-A-K-Q 最小牌：2-2-2-3-4
 
 var sanTiao = (num, color) => {
-        if (num[0] == num[1] == num[2] && num[3] != num[4]) {
+        if (num[0] == num[1] && num[1] == num[2] && num[3] != num[4]) {
             return true;
-        } else if (num[1] == num[2] == num[3] && num[0] != num[4]) {
+        } else if (num[1] == num[2] && num[2] == num[3] && num[0] != num[4]) {
             return true;
-        } else if (num[2] == num[3] == num[4] && num[0] != num[1]) {
+        } else if (num[2] == num[3] && num[3]== num[4] && num[0] != num[1]) {
             return true;
         } else {
             return false;
         }
     }
-    //console.log(sanTiao([2, 3, 3, 3, 4]));
+
+//console.log(sanTiao([3, 3, 3, 4, 5]));
 
 //两对：（最大牌：A-A-K-K-Q 最小牌：2-2-3-3-4
 
@@ -144,10 +145,12 @@ var double = (num, color) => {
     }else if(num[2] == num[3] && num[0] != num[3] && num[3]!= num[4] && num[0]!= num[4]) {
         return true;
     }else if(num[1] == num[2] && num[0] != num[3] && num[3]!= num[4] && num[0]!= num[4]) {
-
+        return true;
+    }else {
+        return false;
     }
 }
-
+console.log(double([1,1,2,2,3]))
 //单牌：花色和面值都不同
 
 var deff = (num, color) => {
@@ -164,7 +167,7 @@ var deff = (num, color) => {
     }
 }
 
-console.log(deff([2, 2, 2, 4, 5], ["c", "s", "c", "c", "c"]));
+//console.log(deff([2, 2, 2, 4, 5], ["c", "s", "c", "c", "c"]));
 
 
 
