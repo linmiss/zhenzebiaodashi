@@ -152,10 +152,13 @@ let score = function(arg){
     return tongHuaShun(a) || siTiao(a) || huLu(a) || tongHua(a) || shunZi(a) || sanTiao(a) || liangDui(a) || yiDui(a) || gaoPai(a);
 };
 
+console.log(score([2,3,4,5,6]));
+console.log(score([3,4,5,6,7]));
+
 //牌处理
 let fs = require('fs');
 
 let data  = JSON.parse(fs.readFileSync('./match.json'))
 
-console.log(data.matches);
+
 
