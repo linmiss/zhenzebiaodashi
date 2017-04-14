@@ -152,11 +152,7 @@ let score = function(arg){
     return p(a) || o(a) || n(a) || m(a) || l(a) || k(a) || j(a) || i(a) || h(a);
 };
 
-//牌处理
-let fs = require('fs');
 
-let data  = JSON.parse(fs.readFileSync('./match.json'));
-//console.log(data.matches)
 
 const num_show=["0","1","2","3","4","5","6","7","8","9","T","J","Q","K","A"];
 const color_type=["s","h","d","c"];
@@ -178,5 +174,23 @@ let convert = (str) => {
     }
     return arr ;
 }
-console.log( convert("AsKsQsJsTs").sort((a,b) => a - b) );
-console.log( score(convert("AsKsQsJsTs").sort((a,b) => a - b) ))
+//console.log( convert("AsKsQsJsTs").sort((a,b) => a - b) );
+//console.log( score(convert("AsKsQsJsTs").sort((a,b) => a - b) ))
+
+/**
+ * 大小比较
+ */
+
+//牌处理
+let fs = require('fs');
+
+let data  = JSON.parse(fs.readFileSync('./match.json'));
+
+console.log(data.matches.length);
+
+for(let i = 0; i < data.matches.length; i++) {
+    //alice bob's poker
+    let alice = score( convert(data.matches[i].alice) ),
+        bob = score( convert(data.matches[i].bob) );
+        console.log(alice, bob);
+}
