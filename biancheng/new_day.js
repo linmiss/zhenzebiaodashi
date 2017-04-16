@@ -162,7 +162,7 @@ const color_type=["s","h","d","c"];
  * string => arr 
  */
 
-let convert = (str) => {
+function convert(str) {
     let arr = [];
     for (var i = 0; i < str.length; i += 2) {
         //面值

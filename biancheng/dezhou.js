@@ -213,7 +213,7 @@ for (let i = 0; i < data.matches.length; i++) {
 
     var num1 = num1.split(",").sort((a, b) => a - b);
     var color1 = color1.sort((a, b) => b - a);
-    //console.log(num1);
+    console.log(num1);
     //arrAlice_num.push(num1);
     //arrAlice_color.push(color1);
 
