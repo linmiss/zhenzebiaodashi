@@ -1,7 +1,41 @@
 'use strict'
 /**
+ * 先不管花色 等最后判断的时候再判断花色否相等
+ * 因为有的要判断花色有的不判断花色，比如 顺子 同花顺 首先只判断牌型 再根据字典中出现的次数决定事顺子，
+ * 还是同花顺
+ */
+
+
+/**
+ * 查找x出现的次数 function
+ * @param {*} a arr 
+ * @param {*} x 要查的值
+ */
+//在数组中查找所有出现的x，并返回一个包含匹配索引的数组
+function findAllIndex(a, x) {
+    var results = [],
+        len = a.length,
+        pos = 0;
+    while (pos < len) {
+        pos = a.indexOf(x, pos);
+        if (pos === -1) {//未找到就退出循环完成搜索
+            break;
+        }
+        results.push(pos);//找到就存储索引
+        pos += 1;//并从下个位置开始搜索
+    }
+    return results;
+}
+ 
+var arr=[1,2,3,1,4,1,4,1];
+findAllIndex(arr,1);//返回[0,3,5,7]
+console.log(findAllIndex(arr,1))
+
+
+/**
  * 建立一个poker字典然后查index
  */
+
 
 //高牌
 
@@ -78,8 +112,9 @@ let arr3 = [],
         for(let m = i ; m < poker11.length; m++) {
             for(let n = 0; n < poker12.length; n++) {
                 let arr = [];
-                let a = poker10[i].substr(0,poker10[i].indexOf(',')),
+                let a = poker10[i].substr(0,poker10[i].indexOf(',')),//截取poker10 的 14
                     b = poker11[m].substr(0,poker11[m].indexOf(','));
+                    //去重
                 if(parseInt(a) != poker12[n] && parseInt(b) != poker12[n]) {
                     arr.push(`${poker10[i]}`);
                     arr.push(`${poker11[m]}`);
@@ -128,3 +163,41 @@ for(let i = 0; i < poker10.length; i++) {
 //从小到大：（取反）
 arr4.reverse();
 //console.log(arr4)
+
+
+
+//顺子：花色不一样的顺子。（最大牌：A-K-Q-J-10 最小牌：A-2-3-4-5）
+let color1 = ["s","h","d","c"],
+    poker16 = [14,13,12,11,10,9,8,7,6,5,4,3,2],
+    poker17 =    [13,12,11,10,9,8,7,6,5,4,3,2],
+    poker18 =       [12,11,10,9,8,7,6,5,4,3,2],
+    poker19 =          [11,10,9,8,7,6,5,4,3,2],
+    poker20 =             [10,9,8,7,6,5,4,3,2],
+    color = [];
+    for(let i = 0; i < color1.length; i++) {
+        for(let j = 0; j < color1.length; j++) {
+            for (let m = 0; m < color1.length; m++) {
+                for (let n = 0; n < color1.length; n++) {
+                    for (let k = 0; k < color1.length; k++) {
+                        if(color1[i] != color1[j] != color1[m] != color1[n] != color1[k]) {
+                            let arr_col = [];
+                            arr_col.push(color1[i]);
+                            arr_col.push(color1[j]);
+                            arr_col.push(color1[m]);
+                            arr_col.push(color1[n]);
+                            arr_col.push(color1[k]);
+                            arr_col.toString().replace('c,c,c,c,c','')
+                                                          .replace('d,d,d,d,d','')
+                                                          .replace('h,h,h,h,h','')
+                                                          .replace('s,s,s,s,s','')
+                                                          .split(',');
+                            //color.push(arr_col);
+                            //console.log(color);
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+
