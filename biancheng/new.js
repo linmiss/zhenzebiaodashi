@@ -2,7 +2,7 @@
 /**
  * 先不管花色 等最后判断的时候再判断花色否相等
  * 因为有的要判断花色有的不判断花色，比如 顺子 同花顺 首先只判断牌型 再根据字典中出现的次数决定事顺子，
- * 还是同花顺
+ * 还是同花顺(如果出现一次那就不是顺子和同花了)
  */
 
 
@@ -27,9 +27,9 @@ function findAllIndex(a, x) {
     return results;
 }
  
-var arr=[1,2,3,1,4,1,4,1];
-findAllIndex(arr,1);//返回[0,3,5,7]
-console.log(findAllIndex(arr,1))
+// var arr=[1,2,3,1,4,1,4,1];
+// findAllIndex(arr,1);//返回[0,3,5,7]
+// console.log(findAllIndex(arr,1))
 
 
 /**
@@ -37,7 +37,7 @@ console.log(findAllIndex(arr,1))
  */
 
 
-//高牌
+//高牌  (最大牌：A-K-Q-J-9 最小牌：2-3-4-5-7）
 
 let arr1 = [],
 poker1 = [14,13,12,11,10,9,8,7,6,5,4,3,2],
@@ -79,12 +79,13 @@ for(let i = 0 ; i < 9; i++) {
 arr1.reverse();
 //console.log(arr1);
 
-//一对 （最大牌：A-A-K-Q-J 最小牌：2-2-3-4-5）
+//一对 （最大牌：A-A-K-Q-J 最小牌：2-2-3-4-5）   待处理完
 let poker6 = ['14,14','13,13','12,12','11,11','10,10',
               '9,9','8,8','7,7','6,6','5,5','4,4','3,3','2,2'],
     poker7 = [13,12,11,10,9,8,7,6,5,4,3,2],
     poker8 =    [12,11,10,9,8,7,6,5,4,3,2],
-    poker9 =       [11,10,9,8,7,6,5,4,3,2];
+    poker9 =       [11,10,9,8,7,6,5,4,3,2],
+    arr2 = [];
 
     for(let i = 0; i < 10; i++) {
         for(let j = i; j < 10; j++) {
@@ -145,8 +146,8 @@ for(let i = 0; i < poker10.length; i++) {
             //console.log(typeof poker11[m].toString()) //string
             //console.log(typeof poker12[n]) //string 
             //去掉重复的
-            let num = poker13[i].substr(0,poker13[i].indexOf(','));//获取第一张牌，不能重复
-            if(parseInt(num) != poker14[m] && parseInt(num) != poker15[n]) {
+            let c = poker13[i].substr(0,poker13[i].indexOf(','));//获取第一张牌，不能重复
+            if(parseInt(c) != poker14[m] && parseInt(c) != poker15[n]) {
                 let arr = [];
                 arr.push(`${poker13[i]}`);
                 arr.push(`${poker14[m]}`);
@@ -167,37 +168,62 @@ arr4.reverse();
 
 
 //顺子：花色不一样的顺子。（最大牌：A-K-Q-J-10 最小牌：A-2-3-4-5）
-let color1 = ["s","h","d","c"],
-    poker16 = [14,13,12,11,10,9,8,7,6,5,4,3,2],
-    poker17 =    [13,12,11,10,9,8,7,6,5,4,3,2],
-    poker18 =       [12,11,10,9,8,7,6,5,4,3,2],
-    poker19 =          [11,10,9,8,7,6,5,4,3,2],
-    poker20 =             [10,9,8,7,6,5,4,3,2],
-    color = [];
-    for(let i = 0; i < color1.length; i++) {
-        for(let j = 0; j < color1.length; j++) {
-            for (let m = 0; m < color1.length; m++) {
-                for (let n = 0; n < color1.length; n++) {
-                    for (let k = 0; k < color1.length; k++) {
-                        if(color1[i] != color1[j] != color1[m] != color1[n] != color1[k]) {
-                            let arr_col = [];
-                            arr_col.push(color1[i]);
-                            arr_col.push(color1[j]);
-                            arr_col.push(color1[m]);
-                            arr_col.push(color1[n]);
-                            arr_col.push(color1[k]);
-                            arr_col.toString().replace('c,c,c,c,c','')
-                                                          .replace('d,d,d,d,d','')
-                                                          .replace('h,h,h,h,h','')
-                                                          .replace('s,s,s,s,s','')
-                                                          .split(',');
-                            //color.push(arr_col);
-                            //console.log(color);
-                        }
-                        
-                    }
-                }
+let arr5 = [
+    '14,5,4,3,2',
+    '6,5,4,3,2',
+    '7,6,5,4,3',
+    '8,7,6,5,4',
+    '9,8,7,6,5',
+    '10,9,8,7,6',
+    '11,10,9,8,7',
+    '12,11,10,9,8',
+    '13,12,11,10,9',
+    '14,13,12,11,10'
+]
+
+//同花：同一花色,不同顺序。（最大牌：A-K-Q-J-9 最小牌：2-3-4-5-7）
+let arr6 = arr1 ;
+//console.log(arr6);
+
+
+//葫芦：最大牌：A-A-A-K-K 最小牌：2-2-2-3-3
+let arr7 = [],
+    poker17 = ['14,14,14','13,13,13','12,12,12','11,11,11','10,10,10',
+                '9,9,9','8,8,8','7,7,7','6,6,6','5,5,5','4,4,4','3,3,3','2,2,2'],
+    poker18 = ['14,14','13,13','12,12','11,11','10,10',
+              '9,9','8,8','7,7','6,6','5,5','4,4','3,3','2,2'];
+    for(let i = 0; i < poker17.length; i++) {
+        for(let j = 0; j < poker18.length; j++) {
+            let d = poker17[i].substr(0,poker17[i].indexOf(',')),
+                f = poker18[j].substr(0,poker18[j].indexOf(','));
+            if(parseInt(d) != parseInt(f)) {
+                let arr = [];
+                arr.push(`${poker17[i]}`);
+                arr.push(`${poker18[j]}`);
+                //console.log(arr);
+                arr7.push( arr.toString().split(",").sort((a,b) => b - a).toString() )
+                //console.log(arr7);
+            }
+            
+        }
+    };
+
+arr7.reverse();
+console.log(arr7);
+
+//四条: 四张相同牌型，花色不同 ，最大牌：A-A-A-A-K 最小牌：2-2-2-2-3
+let poker19 = ['14,14,14,14','13,13,13,13','12,12,12,12','11,11,11,11','10,10,10,10',
+                '9,9,9,9','8,8,8.8','7,7,7.7','6,6,6,6','5,5,5,5','4,4,4,4','3,3,3,3','2,2,2,2'],
+    poker20 = [14,13,12,11,10,9,8,7,6,5,4,3,2],
+    arr8 = [];
+    for(let i = 0; i < poker19.length; i++) {
+        for(let j = 0; j < poker20.length; j++) {
+            let m = poker19[i].substr(0,poker19[i].indexOf(','));
+            if(parseInt(m) != poker20[j]) {
+                let arr = [];
+                arr.push(`${poker19[i]}`);
+                arr.push(`${poker20[j]}`);
+                console.log(arr);
             }
         }
     }
-
