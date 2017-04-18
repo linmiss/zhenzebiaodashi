@@ -5,7 +5,7 @@
  * 还是同花顺(如果出现一次那就不是顺子和同花了)
  */
 
-
+console.time('time');
 /**
  * 查找x出现的次数 function
  * @param {*} a arr 
@@ -27,15 +27,9 @@ function findAllIndex(a, x) {
     return results;
 }
  
-// var arr=[1,2,3,1,4,1,4,1];
-// findAllIndex(arr,1);//返回[0,3,5,7]
-// console.log(findAllIndex(arr,1))
-
-
 /**
  * 建立一个poker字典然后查index
  */
-
 
 //高牌  (最大牌：A-K-Q-J-9 最小牌：2-3-4-5-7）
 
@@ -56,8 +50,7 @@ for(let i = 0 ; i < 9; i++) {
                     arr.push(`${poker3[m]}`);
                     arr.push(`${poker4[n]}`);
                     arr.push(`${poker5[k]}`);
-                    
-                    //console.log(arr);
+                   
                     //删除顺子
                     if(arr.toString() != '14,13,12,11,10' &&
                        arr.toString() != '13,12,11,10,9'  &&
@@ -82,25 +75,33 @@ arr1.reverse();
 //一对 （最大牌：A-A-K-Q-J 最小牌：2-2-3-4-5）   待处理完
 let poker6 = ['14,14','13,13','12,12','11,11','10,10',
               '9,9','8,8','7,7','6,6','5,5','4,4','3,3','2,2'],
-    poker7 = [13,12,11,10,9,8,7,6,5,4,3,2],
-    poker8 =    [12,11,10,9,8,7,6,5,4,3,2],
-    poker9 =       [11,10,9,8,7,6,5,4,3,2],
+    poker7 = [14,13,12,11,10,9,8,7,6,5,4,3,2],
+    poker8 =    [13,12,11,10,9,8,7,6,5,4,3,2],
+    poker9 =       [12,11,10,9,8,7,6,5,4,3,2],
     arr2 = [];
 
-    for(let i = 0; i < 10; i++) {
-        for(let j = i; j < 10; j++) {
-            for(let m = j; m < 10; m++) {
-                for(let n = j; n < 10; n++) {
-                    let arr = [];
-                    arr.push(`${poker6[i]}`);
-                    arr.push(`${poker7[j]}`);
-                    arr.push(`${poker8[m]}`);
-                    arr.push(`${poker9[n]}`);
-
+    for(let i = 0; i < poker6.length; i++) {
+        for(let j = 0; j < poker7.length - 2; j++) {
+            for(let m = j; m < poker8.length - 1; m++) {
+                for(let n = m; n < poker9.length; n++) {
+                    let p =  poker6[i].substr(0,poker6[i].indexOf(','));
+                    if(parseInt(p) != poker7[j] &&
+                       parseInt(p) != poker8[m] &&
+                       parseInt(p) != poker9[n]
+                    ) {
+                        let arr = [];
+                        arr.push(`${poker6[i]}`);
+                        arr.push(`${poker7[j]}`);
+                        arr.push(`${poker8[m]}`);
+                        arr.push(`${poker9[n]}`);
+                        arr2.push(arr.toString().split(',').sort((a, b) => b - a).toString());
+                    }
+                    
                 }
             }
         }
-    }
+    };
+arr2.reverse();
 
 //两对：（最大牌：A-A-K-K-Q 最小牌：2-2-3-3-4）
 let arr3 = [],
@@ -120,18 +121,13 @@ let arr3 = [],
                     arr.push(`${poker10[i]}`);
                     arr.push(`${poker11[m]}`);
                     arr.push(`${poker12[n]}`);
-                    //console.log(arr.toString().split(',').sort((a, b) => b - a).toString());
                     arr3.push(arr.toString().split(',').sort((a, b) => b - a).toString());
                 }
                 
             }
         }
     };
-//console.log(arr3)
 arr3.reverse();
-//console.log(arr3);
-
-
 
 //三条：三同张加两单张。（最大牌：A-A-A-K-Q 最小牌：2-2-2-3-4
 let poker13 = ['14,14,14','13,13,13','12,12,12','11,11,11','10,10,10',
@@ -152,8 +148,6 @@ for(let i = 0; i < poker10.length; i++) {
                 arr.push(`${poker13[i]}`);
                 arr.push(`${poker14[m]}`);
                 arr.push(`${poker15[n]}`);
-                //console.log(arr)
-                //console.log(arr.toString().split(",").sort((a,b) => b - a).toString());
                 //从大到小排列的
                 arr4.push( arr.toString().split(",").sort((a,b) => b - a).toString() );
             }
@@ -163,9 +157,6 @@ for(let i = 0; i < poker10.length; i++) {
 }
 //从小到大：（取反）
 arr4.reverse();
-//console.log(arr4);
-
-
 
 //顺子：花色不一样的顺子。（最大牌：A-K-Q-J-10 最小牌：A-2-3-4-5）
 let arr5 = [
@@ -183,8 +174,6 @@ let arr5 = [
 
 //同花：同一花色,不同顺序。（最大牌：A-K-Q-J-9 最小牌：2-3-4-5-7）
 let arr6 = arr1 ;
-//console.log(arr6);
-
 
 //葫芦：最大牌：A-A-A-K-K 最小牌：2-2-2-3-3
 let arr7 = [],
@@ -200,7 +189,6 @@ let arr7 = [],
                 let arr = [];
                 arr.push(`${poker17[i]}`);
                 arr.push(`${poker18[j]}`);
-                //console.log(arr);
                 arr7.push( arr.toString().split(",").sort((a,b) => b - a).toString() );
             }  
         }
@@ -221,7 +209,6 @@ let poker19 = ['14,14,14,14','13,13,13,13','12,12,12,12','11,11,11,11','10,10,10
                 let arr = [];
                 arr.push(`${poker19[i]}`);
                 arr.push(`${poker20[j]}`);
-                //console.log(arr);
                 arr8.push( arr.toString().split(",").sort((a,b) => b - a).toString() );
             }
         }
@@ -240,8 +227,6 @@ let arr9 = arr5;
 let poker_all = [...arr1, ...arr2, ...arr3, ...arr4, ...arr5, ...arr6, ...arr7, ...arr8, ...arr9];
 
 //console.log(poker_all.length);
-
-
 
 /**
  * 下面进行比较大小
@@ -269,7 +254,7 @@ function handleNum(name) {
                             .replace(/A/g, '14');
 
     num = num.split(",").sort((a, b) => b - a).toString();
-    
+
     return  num;
 };
 
@@ -288,15 +273,169 @@ function handleColor(name) {
 /**
  * 牌型大小判断
  */
-for (let i = 0; i < 1; i++) {
+for (let i = 0; i < data.matches.length; i++) {
     let alice = data.matches[i].alice,
         bob = data.matches[i].bob;
     
     let alice_num = handleNum(alice),
-        alice_color = handleColor(alice),
-        bob_num = handleNum(bob),
+        alice_color = handleColor(alice);
+
+    let bob_num = handleNum(bob),
         bob_color = handleColor(bob);
     //console.log(alice_num);
     //console.log(alice_color);
     //console.log(poker_all.indexOf(alice_num));
+    
+    //看num出现的次数 index数组：[]
+    let occ_num_alice = findAllIndex(poker_all,alice_num),
+        occ_num_bob = findAllIndex(poker_all,bob_num);
+    //console.log(occ_num_alice.length);
+    //判断出现的次数
+    if(occ_num_alice.length == 1 && occ_num_bob.length == 1) {
+
+        if(occ_num_alice[0] > occ_num_bob[0]) {
+            data.matches[i].result = 1 ;
+        }else if(occ_num_alice[0] < occ_num_bob[0]) {
+            data.matches[i].result = 2 ;
+        }else {
+            data.matches[i].result = 0 ;
+        }
+
+    }else if(occ_num_alice.length == 1 && occ_num_bob.length == 2) {
+
+        if(bob_color == 's,s,s,s,s' ||
+           bob_color == 'h,h,h,h,h' ||
+           bob_color == 'd,d,d,d,d' ||
+           bob_color == 'c,c,c,c,c' 
+        ) 
+        {
+           if(occ_num_alice[0] > occ_num_bob[1]) {
+                 data.matches[i].result = 1 ;
+           }else if(occ_num_alice[0] < occ_num_bob[1]) {
+                 data.matches[i].result = 2 ;
+           }else {
+                 data.matches[i].result = 0 ;
+           }
+
+        }else {
+
+           if(occ_num_alice[0] > occ_num_bob[0]) {
+                 data.matches[i].result = 1 ;
+           }else if(occ_num_alice[0] < occ_num_bob[0]) {
+                 data.matches[i].result = 2 ;
+           }else {
+                 data.matches[i].result = 0 ;
+           }
+
+        }
+        
+    }else if(occ_num_alice.length == 2 && occ_num_bob.length == 1) {
+
+        if(alice_color == 's,s,s,s,s' ||
+           alice_color == 'h,h,h,h,h' ||
+           alice_color == 'd,d,d,d,d' ||
+           alice_color == 'c,c,c,c,c' 
+        ) 
+        {
+           if(occ_num_alice[1] > occ_num_bob[0]) {
+                 data.matches[i].result = 1 ;
+           }else if(occ_num_alice[1] < occ_num_bob[0]) {
+                 data.matches[i].result = 2 ;
+           }else {
+                 data.matches[i].result = 0 ;
+           }
+
+        }else {
+
+           if(occ_num_alice[0] > occ_num_bob[0]) {
+                 data.matches[i].result = 1 ;
+           }else if(occ_num_alice[0] < occ_num_bob[0]) {
+                 data.matches[i].result = 2 ;
+           }else {
+                 data.matches[i].result = 0 ;
+           }
+
+        }
+    }else { //length都是：２
+       　
+        if( //两手牌都是同花
+            (
+                alice_color == 's,s,s,s,s' ||
+                alice_color == 'h,h,h,h,h' ||
+                alice_color == 'd,d,d,d,d' ||
+                alice_color == 'c,c,c,c,c'
+            )
+            && 
+            (
+               bob_color == 's,s,s,s,s' ||
+               bob_color == 'h,h,h,h,h' ||
+               bob_color == 'd,d,d,d,d' ||
+               bob_color == 'c,c,c,c,c'
+            )
+        ) {
+            if(occ_num_alice[1] > occ_num_bob[1]) {
+                data.matches[i].result = 1;
+            }else if (occ_num_alice[1] < occ_num_bob[1]) {
+                data.matches[i].result = 2;
+            }else {
+                data.matches[i].result = 0;
+            }
+        }else if( //第一手是同花
+            (
+                alice_color == 's,s,s,s,s' ||
+                alice_color == 'h,h,h,h,h' ||
+                alice_color == 'd,d,d,d,d' ||
+                alice_color == 'c,c,c,c,c'
+            )
+            && 
+            (
+               bob_color !== 's,s,s,s,s' ||
+               bob_color !== 'h,h,h,h,h' ||
+               bob_color !== 'd,d,d,d,d' ||
+               bob_color !== 'c,c,c,c,c'
+            )
+        ) {
+            if(occ_num_alice[1] > occ_num_bob[0]) {
+                data.matches[i].result = 1;
+            }else if (occ_num_alice[1] < occ_num_bob[0]) {
+                data.matches[i].result = 2;
+            }else {
+                data.matches[i].result = 0;
+            }
+        }else if( //第二手牌是同花
+            (
+                alice_color !== 's,s,s,s,s' ||
+                alice_color !== 'h,h,h,h,h' ||
+                alice_color !== 'd,d,d,d,d' ||
+                alice_color !== 'c,c,c,c,c'
+            )
+            && 
+            (
+               bob_color == 's,s,s,s,s' ||
+               bob_color == 'h,h,h,h,h' ||
+               bob_color == 'd,d,d,d,d' ||
+               bob_color == 'c,c,c,c,c'
+            )
+        ) {
+            if(occ_num_alice[0] > occ_num_bob[1]) {
+                data.matches[i].result = 1;
+            }else if (occ_num_alice[0] < occ_num_bob[1]) {
+                data.matches[i].result = 2;
+            }else {
+                data.matches[i].result = 0;
+            }
+        }else {//都不是同花
+            if(occ_num_alice[0] > occ_num_bob[0]) {
+                data.matches[i].result = 1;
+            }else if (occ_num_alice[0] < occ_num_bob[0]) {
+                data.matches[i].result = 2;
+            }else {
+                data.matches[i].result = 0;
+            }
+        }
+
+    };
+
+    console.log(data.matches[i].result, i+1);
 };
+console.timeEnd('time');

@@ -1,4 +1,6 @@
 //5张牌
+console.time('time');
+
 var fs=require("fs");
 var file="./result.json";
 var Json=JSON.parse(fs.readFileSync('./biancheng/five_cards_with_ghost.json'));
@@ -154,17 +156,17 @@ var confirmed=function(obj) {//验证函数
     var outcome = s1 > s2 ? 1 : s1 == s2 ? 0 : 2
     var result = obj[i].result;
     if (outcome != result) {
-      //console.log(i);
+      console.log(i);
       count++;
     }
   }
   if(count == 0){
-      //console.log("验证"+i+"条");
-      //console.log("恭喜验证通过！");
+      console.log("验证"+i+"条");
+      console.log("恭喜验证通过！");
    }else{
-    // console.log("验证失败");
+      console.log("验证失败");
    }
 }
 confirmed(obj);
 
-
+console.timeEnd('time');
