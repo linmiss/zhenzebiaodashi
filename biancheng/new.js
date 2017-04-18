@@ -96,7 +96,7 @@ let poker6 = ['14,14','13,13','12,12','11,11','10,10',
                     arr.push(`${poker7[j]}`);
                     arr.push(`${poker8[m]}`);
                     arr.push(`${poker9[n]}`);
-                    //console.log(arr.toString().split());
+
                 }
             }
         }
@@ -141,7 +141,7 @@ let poker13 = ['14,14,14','13,13,13','12,12,12','11,11,11','10,10,10',
 let arr4 = [];
 for(let i = 0; i < poker10.length; i++) {
     for(let m = 0; m < poker11.length - 1; m++) {
-        for(let n = m; n < poker12.length; n++) {
+        for(let n = m; n < poker12.length - 1; n++) {
             //console.log( poker10[i].substr(0,poker10[i].indexOf(',')) );//string
             //console.log(typeof poker11[m].toString()) //string
             //console.log(typeof poker12[n]) //string 
@@ -163,7 +163,7 @@ for(let i = 0; i < poker10.length; i++) {
 }
 //从小到大：（取反）
 arr4.reverse();
-//console.log(arr4)
+//console.log(arr4);
 
 
 
@@ -201,15 +201,13 @@ let arr7 = [],
                 arr.push(`${poker17[i]}`);
                 arr.push(`${poker18[j]}`);
                 //console.log(arr);
-                arr7.push( arr.toString().split(",").sort((a,b) => b - a).toString() )
-                //console.log(arr7);
-            }
-            
+                arr7.push( arr.toString().split(",").sort((a,b) => b - a).toString() );
+            }  
         }
     };
 
 arr7.reverse();
-console.log(arr7);
+//console.log(arr7);
 
 //四条: 四张相同牌型，花色不同 ，最大牌：A-A-A-A-K 最小牌：2-2-2-2-3
 let poker19 = ['14,14,14,14','13,13,13,13','12,12,12,12','11,11,11,11','10,10,10,10',
@@ -223,7 +221,82 @@ let poker19 = ['14,14,14,14','13,13,13,13','12,12,12,12','11,11,11,11','10,10,10
                 let arr = [];
                 arr.push(`${poker19[i]}`);
                 arr.push(`${poker20[j]}`);
-                console.log(arr);
+                //console.log(arr);
+                arr8.push( arr.toString().split(",").sort((a,b) => b - a).toString() );
             }
         }
-    }
+    };
+
+arr8.reverse();
+//console.log(arr8);
+
+//同花顺:最大牌：K-Q-J-10-9 最小牌：A-2-3-4-5
+let arr9 = arr5;
+//console.log(arr9);
+
+/**
+ * 字典建立完成！
+ */
+let poker_all = [...arr1, ...arr2, ...arr3, ...arr4, ...arr5, ...arr6, ...arr7, ...arr8, ...arr9];
+
+//console.log(poker_all.length);
+
+
+
+/**
+ * 下面进行比较大小
+ */
+
+//牌的面值和花色处理
+let fs = require('fs');
+
+//获取data数据
+var data = JSON.parse(fs.readFileSync("./match.json"));
+//console.log(data);
+
+
+//牌型处理面值
+function handleNum(name) {
+    //面值
+    const re = /[0-9A-Z]+/g;
+
+    let num = name.match(re);
+        
+    num = num.toString().replace(/T/g, '10')
+                            .replace(/J/g, '11')
+                            .replace(/Q/g, '12')
+                            .replace(/K/g, '13')
+                            .replace(/A/g, '14');
+
+    num = num.split(",").sort((a, b) => b - a).toString();
+    
+    return  num;
+};
+
+//花色处理函数
+function handleColor(name) {
+    //花色处理
+     const re1 = /[a-z]/g;
+
+     let color = name.match(re1);
+
+     color = color.sort().reverse().toString();
+
+     return color;
+}
+
+/**
+ * 牌型大小判断
+ */
+for (let i = 0; i < 1; i++) {
+    let alice = data.matches[i].alice,
+        bob = data.matches[i].bob;
+    
+    let alice_num = handleNum(alice),
+        alice_color = handleColor(alice),
+        bob_num = handleNum(bob),
+        bob_color = handleColor(bob);
+    //console.log(alice_num);
+    //console.log(alice_color);
+    //console.log(poker_all.indexOf(alice_num));
+};
